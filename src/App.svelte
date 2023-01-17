@@ -4,12 +4,17 @@
 	const handleChangeFruitName=()=>{
 		fruitName='Apple';
 	}
+	const handleInput=(e)=>{
+		fruitName=e.target.value;
+	}
 </script>
 
 <main>
 	<h1>Hello {name}!</h1>
 	<p>{fruitName} Fruit </p>
 	<button on:click={handleChangeFruitName}>Update Fruit Name</button>
+	<!-- <input type="text" value={fruitName} on:input={handleInput}/> -->
+	<input type="text" bind:value={fruitName}/>
 </main>
 
 <style>
