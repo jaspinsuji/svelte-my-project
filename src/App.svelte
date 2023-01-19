@@ -1,6 +1,9 @@
 <script>
-	let name='Jaspin';
-	let fruitName='Orange';
+	let firstName='Jaspin';
+	let lastName='Suji';
+	let aboutName='Talented';
+	
+	$: fullName =`${firstName} ${lastName}`
 	const handleChangeFruitName=()=>{
 		fruitName='Apple';
 	}
@@ -10,11 +13,11 @@
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>{fruitName} Fruit </p>
-	<button on:click={handleChangeFruitName}>Update Fruit Name</button>
-	<!-- <input type="text" value={fruitName} on:input={handleInput}/> -->
-	<input type="text" bind:value={fruitName}/>
+	<p>{firstName} {lastName} - {aboutName} person </p>
+	<p>{fullName} - {aboutName} person </p>
+	<input type="text" bind:value={firstName}/>
+	<input type="text" bind:value={lastName}/>
+	<input type="text" bind:value={aboutName}/>
 </main>
 
 <style>
