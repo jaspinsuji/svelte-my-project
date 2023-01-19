@@ -1,23 +1,76 @@
 <script>
-	let firstName='Jaspin';
-	let lastName='Suji';
-	let aboutName='Talented';
-	
-	$: fullName =`${firstName} ${lastName}`
-	const handleChangeFruitName=()=>{
-		fruitName='Apple';
-	}
-	const handleInput=(e)=>{
-		fruitName=e.target.value;
-	}
+	import Modal from "./Modal.svelte";
+	let showModal =false;
+
+	let people = [{
+    id:1,
+    name: 'Suji',
+    location: 'Chennai',
+    age:31,
+    mobile:9876543210
+},
+{
+    id:2,
+    name: 'Arun',
+    location: 'Bangalore',
+    age:31,
+    mobile:1234567890
+},
+{
+    id:3,
+    name: 'Halin',
+    location: 'Nagercoil',
+    age:1,
+    mobile:1234567890
+}];
+const handleClick =(id)=>{
+	//Delete the person from the people
+	console.log (id);
+	people = people.filter((person)=>person.id!=id);
+}
+const toggleModal =()=>{
+	showModal = !showModal;
+}
+let num=5;
 </script>
 
+{#if num>20}
+<p>Greater than 20</p>
+{:else if num>5}
+<p>Greater than 5</p>
+{:else}
+<p>Not Greater than 5</p>
+{/if}
+
+<Modal message="Hi, I am Prop Value" {showModal} on:click={toggleModal}/>
 <main>
-	<p>{firstName} {lastName} - {aboutName} person </p>
-	<p>{fullName} - {aboutName} person </p>
-	<input type="text" bind:value={firstName}/>
-	<input type="text" bind:value={lastName}/>
-	<input type="text" bind:value={aboutName}/>
+	<button on:click={toggleModal}>Show Modal</button>
+	{#each people as person(person.id)}
+	<div>
+		<h4>{person.name}</h4>
+		<!-- {#if person.location ==='Nagercoil'}
+		<p><strong>Master of the Family</strong></p>
+		{/if} -->
+		<p>{person.age} years old, {person.location} location</p>
+		<button on:click={()=>{handleClick(person.id)}}>delete</button>
+	</div>
+	{:else}
+	<p>There are no people to show ...</p>
+	{/each}
+	<hr/>
+
+	<div>
+		<h4>{people[0].name}</h4>
+		<p>{people[0].location}</p>
+	</div>
+	<div>
+		<h4>{people[1].name}</h4>
+		<p>{people[1].location}</p>
+	</div>
+	<div>
+		<h4>{people[2].name}</h4>
+		<p>{people[2].location}</p>
+	</div>
 </main>
 
 <style>
@@ -26,13 +79,6 @@
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
 	}
 
 	@media (min-width: 640px) {
